@@ -26,7 +26,7 @@ The study employs a computational "silicon sampling" methodology to conduct a **
 ```text
 ├── data/                  # Simulated behavioral responses and demographic inputs
 ├── simulation.py                   # Python scripts for LLM API interaction and data generation
-├── analysis/              # Scripts for the ART ANOVA and post-hoc pairwise comparisons
+├── analysis.R              # Scripts for the ART ANOVA and post-hoc pairwise comparisons
 ├── paper/                 # LaTeX source code and the compiled PDF manuscript
 ├── README.md              # Project documentation
 └── requirements.txt       # Python dependencies
