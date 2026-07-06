@@ -1,0 +1,101 @@
+pid,Market_Context,Transparency,Financial_Literacy,Tech_Savviness,Age,Gender,Education,Willingness_to_Invest
+605,Bear Market (Severe Downturn),Standard AI (Performance metrics only),5,5,22,Male,High school graduate,2
+296,Bull Market (High Growth),Explainable AI (Detailed rationales),5,7,30,Female,Postgraduate,6
+719,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),6,4,55,Female,Postgraduate,4
+1866,Bull Market (High Growth),Explainable AI (Detailed rationales),3,3,30,Female,"Some college, no degree",4
+1343,Bull Market (High Growth),Explainable AI (Detailed rationales),4,6,30,Male,College graduate/some postgrad,5
+100,Bear Market (Severe Downturn),Standard AI (Performance metrics only),6,7,30,Male,Postgraduate,4
+927,Bull Market (High Growth),Explainable AI (Detailed rationales),5,5,55,Male,Associate's degree,4
+727,Bear Market (Severe Downturn),Standard AI (Performance metrics only),5,5,55,Female,"Some college, no degree",2
+207,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),4,7,30,Female,College graduate/some postgrad,5
+415,Bear Market (Severe Downturn),Standard AI (Performance metrics only),7,7,65,Male,Postgraduate,4
+1259,Bull Market (High Growth),Explainable AI (Detailed rationales),5,5,25,Male,High school graduate,4
+845,Bear Market (Severe Downturn),Standard AI (Performance metrics only),4,4,55,Female,College graduate/some postgrad,2
+1212,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),5,5,30,Male,Associate's degree,4
+1093,Bull Market (High Growth),Standard AI (Performance metrics only),5,5,57,Female,High school graduate,2
+539,Bull Market (High Growth),Standard AI (Performance metrics only),4,4,55,Female,"Some college, no degree",2
+1846,Bull Market (High Growth),Explainable AI (Detailed rationales),6,4,55,Female,"Some college, no degree",4
+1473,Bull Market (High Growth),Standard AI (Performance metrics only),5,4,30,Female,Associate's degree,4
+134,Bull Market (High Growth),Standard AI (Performance metrics only),5,5,57,Female,College graduate/some postgrad,4
+1538,Bull Market (High Growth),Standard AI (Performance metrics only),4,4,30,Male,"Some college, no degree",5
+431,Bull Market (High Growth),Explainable AI (Detailed rationales),3,7,30,Male,College graduate/some postgrad,5
+1975,Bear Market (Severe Downturn),Standard AI (Performance metrics only),4,4,30,Male,High school graduate,2
+1684,Bull Market (High Growth),Explainable AI (Detailed rationales),5,7,55,Male,Postgraduate,6
+1674,Bull Market (High Growth),Standard AI (Performance metrics only),3,3,55,Male,College graduate/some postgrad,4
+1063,Bull Market (High Growth),Standard AI (Performance metrics only),6,6,25,Female,College graduate/some postgrad,4
+1082,Bull Market (High Growth),Standard AI (Performance metrics only),5,5,30,Female,High school graduate,2
+1215,Bull Market (High Growth),Explainable AI (Detailed rationales),6,7,55,Female,Postgraduate,5
+56,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),3,3,65,Female,High school graduate,4
+1,Bear Market (Severe Downturn),Standard AI (Performance metrics only),3,3,30,Female,"Some college, no degree",2
+786,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),7,7,25,Male,College graduate/some postgrad,6
+529,Bull Market (High Growth),Explainable AI (Detailed rationales),6,6,30,Male,College graduate/some postgrad,5
+1460,Bull Market (High Growth),Standard AI (Performance metrics only),3,3,25,Male,College graduate/some postgrad,4
+731,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),5,5,55,Male,Postgraduate,4
+30,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),3,3,55,Male,College graduate/some postgrad,4
+452,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),4,7,30,Male,Postgraduate,5
+1527,Bear Market (Severe Downturn),Standard AI (Performance metrics only),5,5,65,Female,"Some college, no degree",2
+1429,Bull Market (High Growth),Standard AI (Performance metrics only),4,4,22,Female,"Some college, no degree",3
+1899,Bear Market (Severe Downturn),Standard AI (Performance metrics only),4,4,30,Male,College graduate/some postgrad,2
+1292,Bull Market (High Growth),Standard AI (Performance metrics only),4,4,22,Female,High school graduate,5
+706,Bull Market (High Growth),Explainable AI (Detailed rationales),5,5,55,Female,Postgraduate,4
+769,Bull Market (High Growth),Standard AI (Performance metrics only),6,5,55,Male,College graduate/some postgrad,4
+887,Bull Market (High Growth),Standard AI (Performance metrics only),7,7,55,Female,"Some college, no degree",4
+1867,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),5,5,65,Female,College graduate/some postgrad,4
+2022,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),5,5,55,Female,College graduate/some postgrad,4
+1111,Bull Market (High Growth),Standard AI (Performance metrics only),6,6,55,Male,"Some college, no degree",4
+291,Bear Market (Severe Downturn),Standard AI (Performance metrics only),4,4,30,Male,"Some college, no degree",2
+84,Bear Market (Severe Downturn),Standard AI (Performance metrics only),5,5,55,Female,"Some college, no degree",2
+568,Bull Market (High Growth),Explainable AI (Detailed rationales),5,5,58,Female,College graduate/some postgrad,6
+1519,Bull Market (High Growth),Standard AI (Performance metrics only),4,4,30,Male,"Some college, no degree",5
+428,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),2,7,18,Male,College graduate/some postgrad,4
+1967,Bear Market (Severe Downturn),Standard AI (Performance metrics only),4,4,30,Female,College graduate/some postgrad,2
+259,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),4,4,55,Female,Postgraduate,5
+888,Bear Market (Severe Downturn),Standard AI (Performance metrics only),6,6,65,Female,"Some college, no degree",2
+400,Bear Market (Severe Downturn),Standard AI (Performance metrics only),5,5,55,Female,College graduate/some postgrad,4
+442,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),6,5,55,Female,Associate's degree,4
+847,Bull Market (High Growth),Standard AI (Performance metrics only),3,3,65,Male,Postgraduate,4
+1609,Bear Market (Severe Downturn),Standard AI (Performance metrics only),6,4,65,Male,College graduate/some postgrad,2
+97,Bear Market (Severe Downturn),Standard AI (Performance metrics only),5,5,55,Male,Postgraduate,4
+419,Bull Market (High Growth),Standard AI (Performance metrics only),4,4,30,Male,College graduate/some postgrad,5
+1092,Bear Market (Severe Downturn),Standard AI (Performance metrics only),6,6,30,Female,College graduate/some postgrad,4
+1418,Bear Market (Severe Downturn),Standard AI (Performance metrics only),6,7,30,Female,College graduate/some postgrad,4
+692,Bull Market (High Growth),Standard AI (Performance metrics only),6,6,55,Female,Postgraduate,4
+1252,Bull Market (High Growth),Explainable AI (Detailed rationales),3,3,30,Male,College graduate/some postgrad,5
+1712,Bear Market (Severe Downturn),Standard AI (Performance metrics only),6,7,30,Female,"Some college, no degree",4
+1057,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),3,7,30,Female,Postgraduate,4
+848,Bear Market (Severe Downturn),Standard AI (Performance metrics only),5,5,30,Female,Postgraduate,4
+164,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),6,3,55,Female,Less than high school,2
+958,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),4,4,55,Female,College graduate/some postgrad,4
+919,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),7,7,65,Female,Postgraduate,4
+932,Bear Market (Severe Downturn),Standard AI (Performance metrics only),3,3,22,Female,High school graduate,2
+1956,Bull Market (High Growth),Standard AI (Performance metrics only),2,2,18,Female,College graduate/some postgrad,4
+313,Bull Market (High Growth),Standard AI (Performance metrics only),6,6,30,Male,College graduate/some postgrad,4
+1677,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),6,6,55,Female,Less than high school,4
+1363,Bull Market (High Growth),Explainable AI (Detailed rationales),5,5,55,Female,High school graduate,6
+1749,Bull Market (High Growth),Explainable AI (Detailed rationales),5,5,30,Male,Associate's degree,4
+1027,Bull Market (High Growth),Explainable AI (Detailed rationales),4,4,30,Female,High school graduate,5
+332,Bull Market (High Growth),Explainable AI (Detailed rationales),6,7,55,Male,Postgraduate,6
+89,Bull Market (High Growth),Explainable AI (Detailed rationales),6,4,65,Female,Associate's degree,5
+1188,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),5,5,25,Male,"Some college, no degree",4
+106,Bull Market (High Growth),Standard AI (Performance metrics only),6,6,55,Female,College graduate/some postgrad,4
+1607,Bull Market (High Growth),Explainable AI (Detailed rationales),5,5,30,Male,Associate's degree,4
+165,Bull Market (High Growth),Standard AI (Performance metrics only),3,3,30,Male,College graduate/some postgrad,4
+1013,Bull Market (High Growth),Explainable AI (Detailed rationales),5,5,25,Female,College graduate/some postgrad,4
+1088,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),3,3,55,Female,Associate's degree,4
+294,Bull Market (High Growth),Standard AI (Performance metrics only),3,3,55,Male,Postgraduate,4
+337,Bull Market (High Growth),Explainable AI (Detailed rationales),6,7,55,Male,Postgraduate,5
+671,Bull Market (High Growth),Standard AI (Performance metrics only),6,6,30,Male,High school graduate,2
+745,Bear Market (Severe Downturn),Standard AI (Performance metrics only),5,5,55,Female,College graduate/some postgrad,4
+1226,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),4,4,55,Female,Associate's degree,5
+1246,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),5,5,30,Female,College graduate/some postgrad,4
+382,Bull Market (High Growth),Explainable AI (Detailed rationales),7,7,55,Male,College graduate/some postgrad,6
+1766,Bear Market (Severe Downturn),Standard AI (Performance metrics only),3,3,30,Male,"Some college, no degree",2
+1255,Bull Market (High Growth),Explainable AI (Detailed rationales),6,7,30,Male,College graduate/some postgrad,5
+912,Bull Market (High Growth),Explainable AI (Detailed rationales),7,7,30,Male,High school graduate,4
+197,Bull Market (High Growth),Standard AI (Performance metrics only),5,5,65,Male,Postgraduate,4
+1950,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),6,5,65,Female,College graduate/some postgrad,4
+657,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),6,7,30,Female,Postgraduate,4
+66,Bear Market (Severe Downturn),Standard AI (Performance metrics only),6,5,30,Male,College graduate/some postgrad,4
+544,Bear Market (Severe Downturn),Explainable AI (Detailed rationales),6,7,30,Male,Postgraduate,4
+738,Bear Market (Severe Downturn),Standard AI (Performance metrics only),5,5,30,Female,College graduate/some postgrad,4
+1480,Bull Market (High Growth),Explainable AI (Detailed rationales),5,5,65,Male,College graduate/some postgrad,4
