@@ -1,4 +1,4 @@
-"""500 unique personas, one randomized investment outcome each, two OpenAI batches.
+"""500 unique personas, one randomized investment outcome each, two Batch phases.
 
 Usage: python simulation.py prepare | run | status | export
 Credentials: environment or .env next to this file. Private prompts stay in runs/.
@@ -28,6 +28,23 @@ import pandas as pd
 import pyarrow.parquet as pq
 import tiktoken
 from openai import OpenAI
+
+# Fixed experimental configuration; copied unchanged from the completed run.
+CONFIG = {'study_id': 'openai-500-v1',
+ 'n': 500,
+ 'seed': 42,
+ 'dataset': 'LLM-Digital-Twin/Twin-2K-500',
+ 'dataset_revision': 'f883165a3026fde855dfd448e0cd16443ab257b6',
+ 'model': 'gpt-5.6-sol',
+ 'reasoning_effort': 'medium',
+ 'temperature': 1.0,
+ 'max_output_tokens': 1536,
+ 'budget_ceiling_usd': 30.0,
+ 'batch_input_usd_per_million': 2.0,
+ 'batch_cached_input_usd_per_million': 0.2,
+ 'batch_output_usd_per_million': 10.0,
+ 'pricing_checked': '2026-10-16',
+ 'prompt_version': 'v1'}
 
 MARKETS = ['Bull Market (High Growth)', 'Bear Market (Severe Downturn)']
 TRANSPARENCIES = ['Standard AI (Performance metrics only)', 'Explainable AI (Detailed rationales)']
@@ -387,7 +404,7 @@ def export(run, config):
              'data_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
              'financial_literacy_measurement': 'LLM-inferred pre-treatment proxy, integer 1-7; not a validated human test score',
              'observations_per_persona': 1, 'temperature_comparison': False}
-    save_json(ROOT / 'study_audit.json', audit)
+    save_json(run / 'study_audit.json', audit)
     print(json.dumps({'exported': str(path), 'n': len(frame), 'estimated_actual_cost_usd': audit['total_estimated_actual_cost_usd']}), flush=True)
 
 
@@ -441,7 +458,7 @@ def main():
     parser.add_argument('command', choices=['prepare', 'run', 'status', 'export'])
     args = parser.parse_args()
     load_dotenv(ROOT / '.env')
-    config = read_json(ROOT / 'study_config.json')
+    config = dict(CONFIG)
     run = ROOT / 'runs' / config['study_id']
     run.mkdir(parents=True, exist_ok=True)
     if args.command == 'prepare':

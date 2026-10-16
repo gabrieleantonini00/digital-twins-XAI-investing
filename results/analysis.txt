@@ -1,0 +1,241 @@
+Input dataset MD5: f7acfc5bb1384dbb71cdc5adebfe9e8b 
+N = 500 unique personas; one investment observation each.
+Financial literacy is an LLM-inferred pre-treatment proxy.
+Median proxy score: 5 
+      
+       Standard XAI
+  Bear      125 125
+  Bull      125 125
+, ,  = Low
+
+      
+       Standard XAI
+  Bear       79  75
+  Bull       77  73
+
+, ,  = High
+
+      
+       Standard XAI
+  Bear       46  50
+  Bull       48  52
+
+
+DESCRIPTIVE TABLES
+              Market Transparency_F   N  Mean           SD Median Literacy_Min Literacy_Max
+Bear.Standard   Bear       Standard 125 2.392 0.9323574007      2            1            7
+Bull.Standard   Bull       Standard 125 3.976 0.9793348632      4            1            7
+Bear.XAI        Bear            XAI 125 3.152 1.0084801724      3            1            7
+Bull.XAI        Bull            XAI 125 4.968 0.8224275632      5            1            7
+                   Market Transparency_F Literacy_Group  N        Mean           SD Median Literacy_Min Literacy_Max
+Bear.Standard.Low    Bear       Standard            Low 79 2.303797468 0.9385535841    2.0            1            5
+Bull.Standard.Low    Bull       Standard            Low 77 4.116883117 0.9315243022    4.0            1            5
+Bear.XAI.Low         Bear            XAI            Low 75 2.973333333 0.9582265902    3.0            1            5
+Bull.XAI.Low         Bull            XAI            Low 73 4.904109589 0.9153685287    5.0            1            5
+Bear.Standard.High   Bear       Standard           High 46 2.543478261 0.9118119138    2.0            6            7
+Bull.Standard.High   Bull       Standard           High 48 3.750000000 1.0210549405    4.0            6            7
+Bear.XAI.High        Bear            XAI           High 50 3.420000000 1.0319389319    3.5            6            7
+Bull.XAI.High        Bull            XAI           High 52 5.057692308 0.6690192277    5.0            6            7
+
+Literacy distribution
+
+  1   2   3   4   5   6   7 
+  8  57  59  82  98 147  49 
+
+Outcome counts by randomized condition
+, ,  = 1
+
+      
+       Standard XAI
+  Bear       14   5
+  Bull        0   0
+
+, ,  = 2
+
+      
+       Standard XAI
+  Bear       68  29
+  Bull       10   0
+
+, ,  = 3
+
+      
+       Standard XAI
+  Bear       28  44
+  Bull       27   7
+
+, ,  = 4
+
+      
+       Standard XAI
+  Bear       10  36
+  Bull       48  23
+
+, ,  = 5
+
+      
+       Standard XAI
+  Bear        5  11
+  Bull       36  62
+
+, ,  = 6
+
+      
+       Standard XAI
+  Bear        0   0
+  Bull        4  33
+
+
+PRIMARY MODEL: cumulative logit
+formula: WTI ~ Market * Transparency_F * Literacy_c
+data:    df
+
+ link  threshold nobs logLik  AIC     niter max.grad cond.H 
+ logit flexible  500  -650.01 1324.02 6(0)  4.69e-10 3.2e+02
+
+Coefficients:
+                                           Estimate  Std. Error  z value   Pr(>|z|)    
+MarketBull                               3.15568980  0.29924144 10.54563 < 2.22e-16 ***
+Transparency_FXAI                        1.52763967  0.27543795  5.54622 2.9191e-08 ***
+Literacy_c                               0.15734967  0.10681070  1.47316    0.14071    
+MarketBull:Transparency_FXAI             0.36138838  0.38990247  0.92687    0.35399    
+MarketBull:Literacy_c                   -0.20256735  0.15231815 -1.32990    0.18355    
+Transparency_FXAI:Literacy_c             0.05662381  0.15376249  0.36826    0.71268    
+MarketBull:Transparency_FXAI:Literacy_c  0.20279111  0.21411362  0.94712    0.34358    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Threshold coefficients:
+      Estimate Std. Error  z value
+1|2 -1.9278800  0.2594903 -7.42949
+2|3  0.7160537  0.2020939  3.54317
+3|4  2.2356186  0.2336490  9.56828
+4|5  3.8988848  0.2686243 14.51427
+5|6  6.3137142  0.3391086 18.61856
+Likelihood ratio tests of cumulative link models:
+ 
+        formula:                                       link: threshold:
+reduced WTI ~ (Market + Transparency_F + Literacy_c)^2 logit flexible  
+full    WTI ~ Market * Transparency_F * Literacy_c     logit flexible  
+
+        no.par       AIC     logLik LR.stat df Pr(>Chisq)
+reduced     11 1322.9199 -650.45993                      
+full        12 1324.0226 -650.01131 0.89725  1    0.34352
+
+Ordinal coefficients and pointwise odds-ratio intervals
+                                     Term       Estimate           SE            OR      OR_Lower     OR_Upper               p
+1                              MarketBull  3.15568979773 0.2992414410 23.4692205242 13.0552108209 42.190380498 5.321446842e-26
+2                       Transparency_FXAI  1.52763967080 0.2754379454  4.6072892589  2.6852966818  7.904941923 2.919101032e-08
+3                              Literacy_c  0.15734967022 0.1068106961  1.1704047981  0.9493331888  1.442957444 1.407068250e-01
+4            MarketBull:Transparency_FXAI  0.36138838399 0.3899024668  1.4353208083  0.6684414914  3.082013683 3.539947215e-01
+5                   MarketBull:Literacy_c -0.20256734994 0.1523181537  0.8166314807  0.6058605436  1.100726862 1.835524388e-01
+6            Transparency_FXAI:Literacy_c  0.05662381434 0.1537624892  1.0582576342  0.7829040543  1.430455257 7.126830601e-01
+7 MarketBull:Transparency_FXAI:Literacy_c  0.20279110578 0.2141136168  1.2248165844  0.8050395505  1.863480701 3.435780699e-01
+
+Proportional-odds diagnostics:
+Tests of nominal effects
+
+formula: WTI ~ Market * Transparency_F * Literacy_c
+                                 Df     logLik       AIC        LRT   Pr(>Chi)    
+<none>                              -650.01131 1324.0226                          
+Market                            4 -647.08194 1326.1639  5.8587323  0.2099496    
+Transparency_F                    4 -648.49211 1328.9842  3.0384000  0.5514199    
+Literacy_c                        4 -638.08656 1308.1731 23.8494913 8.5619e-05 ***
+Market:Transparency_F                                                             
+Market:Literacy_c                 8 -637.28146 1314.5629 25.4597014  0.0012988 ** 
+Transparency_F:Literacy_c         8 -637.16208 1314.3242 25.6984523  0.0011826 ** 
+Market:Transparency_F:Literacy_c                                                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  Market Literacy      Log_OR           SE           OR    OR_Lower     OR_Upper           p_raw Extrapolation          p_Holm
+1   Bear        2 1.414392042 0.4912473581  4.113984576 1.570768379 10.774898020 3.987043296e-03         FALSE 7.095057153e-03
+2   Bear        4 1.527639671 0.2754379454  4.607289259 2.685296682  7.904941923 2.919101032e-08         FALSE 1.167640413e-07
+3   Bear        6 1.640887299 0.3155176402  5.159745721 2.780092188  9.576292480 1.986249999e-07         FALSE 5.958749998e-07
+4   Bull        2 1.370198215 0.4699183373  3.936130817 1.567019171  9.887004631 3.547528576e-03         FALSE 7.095057153e-03
+5   Bull        4 1.889028055 0.2793746007  6.612938143 3.824638294 11.434009577 1.364465460e-11         FALSE 6.822327302e-11
+6   Bull        6 2.407857895 0.3365321745 11.110136558 5.744638318 21.487015805 8.372697545e-13         FALSE 5.023618527e-12
+
+SENSITIVITY: OLS with HC3 standard errors
+                                     Term       Estimate        SE_HC3               p
+1                             (Intercept)  2.35010650888 0.09384221015 7.528469074e-90
+2                              MarketBull  1.66006976872 0.13613650926 4.537655758e-30
+3                       Transparency_FXAI  0.68860928962 0.13476516899 4.625272906e-07
+4                              Literacy_c  0.06982248521 0.05434034174 1.994280805e-01
+5            MarketBull:Transparency_FXAI  0.21352720026 0.18623227559 2.521192148e-01
+6                   MarketBull:Literacy_c -0.11386408005 0.08108398206 1.608683927e-01
+7            Transparency_FXAI:Literacy_c  0.07038073448 0.08061985709 3.830916508e-01
+8 MarketBull:Transparency_FXAI:Literacy_c  0.07454352798 0.10989176931 4.978776790e-01
+
+SENSITIVITY: legacy median-split ART
+                                                                     Term Df Df.res         Sum Sq   Sum Sq.res        F value          Pr(>F)
+Market                                                             Market  1    492 4967705.697617  5303328.382 460.8636364043 1.242745959e-72
+Transparency_F                                             Transparency_F  1    492 1991022.118070  8065852.339 121.4481546274 2.157741286e-25
+Literacy_Group                                             Literacy_Group  1    492   73289.140292 10097900.703   3.5708666665 5.938924924e-02
+Market:Transparency_F                               Market:Transparency_F  1    492    1796.581067 10209759.119   0.0865757825 7.687004239e-01
+Market:Literacy_Group                               Market:Literacy_Group  1    492  126469.709422 10034636.807   6.2008320013 1.309796990e-02
+Transparency_F:Literacy_Group               Transparency_F:Literacy_Group  1    492    3683.736793 10140553.843   0.1787277628 6.726535765e-01
+Market:Transparency_F:Literacy_Group Market:Transparency_F:Literacy_Group  1    492   17855.224342 10243784.131   0.8575708219 3.548733858e-01
+
+ART-C sensitivity pairwise comparisons (Bonferroni)
+ contrast                                     estimate          SE  df t.ratio p.value
+ Bear,Standard,High - Bear,Standard,Low    19.75509081 18.11015801 492   1.091  1.0000
+ Bear,Standard,High - Bear,XAI,High       -95.10478261 19.94947142 492  -4.767 <0.0001
+ Bear,Standard,High - Bear,XAI,Low        -48.32144928 18.28701547 492  -2.642  0.2378
+ Bear,Standard,High - Bull,Standard,High -131.87228261 20.14763557 492  -6.545 <0.0001
+ Bear,Standard,High - Bull,Standard,Low  -170.69452287 18.19650461 492  -9.381 <0.0001
+ Bear,Standard,High - Bull,XAI,High      -270.09824415 19.76478729 492 -13.666 <0.0001
+ Bear,Standard,High - Bull,XAI,Low       -251.78409768 18.38200286 492 -13.697 <0.0001
+ Bear,Standard,Low - Bear,XAI,High       -114.85987342 17.64639523 492  -6.509 <0.0001
+ Bear,Standard,Low - Bear,XAI,Low         -68.07654008 15.74257887 492  -4.324  0.0005
+ Bear,Standard,Low - Bull,Standard,High  -151.62737342 17.87011679 492  -8.485 <0.0001
+ Bear,Standard,Low - Bull,Standard,Low   -190.44961368 15.63734743 492 -12.179 <0.0001
+ Bear,Standard,Low - Bull,XAI,High       -289.85333496 17.43733555 492 -16.623 <0.0001
+ Bear,Standard,Low - Bull,XAI,Low        -271.53918849 15.85281943 492 -17.129 <0.0001
+ Bear,XAI,High - Bear,XAI,Low              46.78333333 17.82785394 492   2.624  0.2508
+ Bear,XAI,High - Bull,Standard,High       -36.76750000 19.73181848 492  -1.863  1.0000
+ Bear,XAI,High - Bull,Standard,Low        -75.58974026 17.73499990 492  -4.262  0.0007
+ Bear,XAI,High - Bull,XAI,High           -174.99346154 19.34074088 492  -9.048 <0.0001
+ Bear,XAI,High - Bull,XAI,Low            -156.67931507 17.92527463 492  -8.741 <0.0001
+ Bear,XAI,Low - Bull,Standard,High        -83.55083333 18.04932645 492  -4.629  0.0001
+ Bear,XAI,Low - Bull,Standard,Low        -122.37307359 15.84183532 492  -7.725 <0.0001
+ Bear,XAI,Low - Bull,XAI,High            -221.77679487 17.62094727 492 -12.586 <0.0001
+ Bear,XAI,Low - Bull,XAI,Low             -203.46264840 16.05456307 492 -12.673 <0.0001
+ Bull,Standard,High - Bull,Standard,Low   -38.82224026 17.95761763 492  -2.162  0.8710
+ Bull,Standard,High - Bull,XAI,High      -138.22596154 19.54507783 492  -7.072 <0.0001
+ Bull,Standard,High - Bull,XAI,Low       -119.91181507 18.14555813 492  -6.608 <0.0001
+ Bull,Standard,Low - Bull,XAI,High        -99.40372128 17.52699712 492  -5.671 <0.0001
+ Bull,Standard,Low - Bull,XAI,Low         -81.08957481 15.95138993 492  -5.084 <0.0001
+ Bull,XAI,High - Bull,XAI,Low              18.31414647 17.71950556 492   1.034  1.0000
+
+P value adjustment: bonferroni method for 28 tests 
+
+Software versions
+R version 4.5.2 (2025-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26300)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] C
+system code page: 65001
+
+time zone: Europe/Rome
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggplot2_4.0.2
+
+loaded via a namespace (and not attached):
+ [1] generics_0.1.4      lattice_0.22-7      lme4_1.1-38         magrittr_2.0.4      grid_4.5.2          estimability_2.0.0  RColorBrewer_1.1-3 
+ [8] mvtnorm_1.4-1       plyr_1.8.9          Matrix_1.7-4        ARTool_0.11.2       Formula_1.2-5       scales_1.4.0        numDeriv_2016.8-1.1
+[15] textshaping_1.0.4   abind_1.4-8         reformulas_0.4.4    Rdpack_2.6.6        cli_3.6.5           rlang_1.1.7         rbibutils_2.4.1    
+[22] splines_4.5.2       withr_3.0.2         tools_4.5.2         ucminf_1.2.3        nloptr_2.2.1        minqa_1.2.8         dplyr_1.2.0        
+[29] boot_1.3-32         vctrs_0.7.1         R6_2.6.1            lifecycle_1.0.5     emmeans_2.0.3       car_3.1-5           MASS_7.3-65        
+[36] ragg_1.5.0          pkgconfig_2.0.3     pillar_1.11.1       gtable_0.3.6        glue_1.8.0          Rcpp_1.1.1          systemfonts_1.3.1  
+[43] tibble_3.3.1        ordinal_2026.7-26   tidyselect_1.2.1    farver_2.1.2        nlme_3.1-168        carData_3.0-6       labeling_0.4.3     
+[50] compiler_4.5.2      S7_0.2.1           

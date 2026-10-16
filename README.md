@@ -1,89 +1,73 @@
 # Explainable AI and simulated investment intentions
 
-Replication project for a balanced experiment with **500 distinct personas**:
-Market (Bull/Bear) × Transparency (Standard/XAI), **125 profiles per condition**.
-Each persona contributes exactly one willingness-to-invest response. There is no
-temperature comparison, repeated outcome sampling, or pooling with the old pilot.
+Experiment with **500 distinct personas**, randomly assigned to Market
+(Bull/Bear) x Transparency (Standard/XAI): **125 profiles per condition** and
+one investment response per persona. OpenAI `gpt-5.6-sol`, reasoning `medium`,
+temperature **1**. No temperature comparison or repeated outcome sampling.
 
-## Study configuration
+## Results
 
-- OpenAI `gpt-5.6-sol`, reasoning `medium`, temperature **1**.
-- Source: [Twin-2K-500](https://huggingface.co/datasets/LLM-Digital-Twin/Twin-2K-500), `full_persona`, pinned revision in `study_config.json`.
-- Sample without replacement and allocation shuffle: seed 42.
-- Two phases: scenario-blind baseline assessment, then one assigned investment vignette.
-- Financial literacy is an **LLM-inferred pre-treatment proxy**, not a human test score.
-- Batch transport: sequential lots of 200, 200 and 100 in each phase, respecting the account's queued-token limit.
-- All requests use the same configuration. The scripts preserve checkpoints by PID and do not automatically redraw failed investment outcomes.
+The proposed three-way interaction was not statistically detectable:
+likelihood-ratio chi-square = 0.897, df = 1, **p = 0.344**. OLS-HC3 and ART
+sensitivity checks also did not detect it (p = 0.498 and 0.355).
 
-The outcome is willingness to invest (integer 1–7). The study compares two
-descriptions of algorithmic disclosure. It does not identify human investment
-behavior or algorithm aversion relative to human advice, since there is no
-human-advisor condition.
+| Market | Standard AI mean | XAI mean |
+|---|---:|---:|
+| Bear | 2.39 | 3.15 |
+| Bull | 3.98 | 4.97 |
 
-## Reproduce
+All six planned ordinal-model XAI contrasts were positive and significant after
+Holm correction. Proportional-odds diagnostics flagged literacy-related
+departures, so common odds ratios require caution. Financial literacy is an
+LLM-inferred baseline proxy, not a validated human test score. These simulated
+outcomes do not establish human investment behavior or algorithm aversion
+relative to human advice. See the manuscript for uncertainty and limitations.
 
-Use Python 3.10+ and R with packages `ordinal`, `ARTool`, `ggplot2`, and `jsonlite`.
-Install the Python dependencies with `python -m pip install -r Requirements.txt`.
-Put credentials in the environment or a local `.env` based on `.env.example`.
-Never commit credentials, downloaded persona profiles, raw API responses, or request files.
+Estimated Batch API charge: **USD 8.88**, excluding the technical compatibility
+check and taxes. The completed-run audit is consolidated in `PROTOCOL.md`.
+
+## Files
+
+- `Data_500.csv`, `Data_Dictionary.md`: final sample and variable definitions.
+- `simulation.py`: fixed configuration, sampling, prompts and resumable Batch collection.
+- `Analysis.R`: all statistical models and checks; writes one report and two figures.
+- `PROTOCOL.md`: prospective analysis plan and completed-run audit.
+- `paper/main.tex`, `paper/Manuscript.pdf`: one self-contained LaTeX source and its PDF.
+- `results/analysis.txt`: descriptive tables, estimates, diagnostics, sensitivity tests and software versions.
+- `results/*.png`: the two manuscript figures.
+- `tests/test_simulation.py`: offline pipeline checks.
+
+The earlier 100-persona study remains in the repository's `pilot-100` tag and Git
+history. Its observations are not pooled with the current sample. There is no
+paper-generation script or public JSON metadata to maintain.
+
+## Reproduce the analysis and PDF
+
+Use Python 3.10+ and R with packages `ordinal`, `ARTool` and `ggplot2`.
 
 ```sh
-python simulation.py prepare
-python -m unittest discover -s tests -v
-python simulation.py run
+python -m pip install -r Requirements.txt
 Rscript Analysis.R
-python build_paper.py
+python -m unittest discover -s tests -v
 cd paper
 pdflatex -interaction=nonstopmode -halt-on-error -jobname=Manuscript main.tex
 pdflatex -interaction=nonstopmode -halt-on-error -jobname=Manuscript main.tex
 ```
 
-`prepare` fixes the sample and estimates a conservative token budget without
-sending generation requests. `run` submits paid batches and resumes existing
-batch IDs after interruptions. `status` retrieves progress. A submission whose
-response was lost is reconciled by batch metadata rather than blindly repeated.
-The $30 planning ceiling includes input estimates, cache-write overhead and output
-caps; it is not a provider-enforced account spend limit. The exact realized token
-usage and estimated charge are recorded in `study_audit.json` once all results are collected.
+The manuscript tables and prose are stored directly in `main.tex`. Re-running
+the analysis regenerates the report and figures; changes to numerical findings
+must be reflected in the LaTeX source before recompiling.
 
-The initial 500-request baseline batch exceeded the account's queued-token limit
-and was rejected before processing. The six smaller transport batches do not
-alter the research sample or protocol.
-
-## Analysis
-
-`PROTOCOL.md` records the plan fixed before new investment-outcome collection;
-this is not a claim of public preregistration. The primary cumulative logit model
-retains the numerical literacy proxy and tests the three-way interaction by
-likelihood-ratio comparison. Six planned XAI contrasts use Holm correction.
-OLS with HC3 errors and the earlier median-split ART approach are sensitivity
-analyses. The report includes model diagnostics and flags extrapolated contrasts.
-
-## Files
-
-- `Data_500.csv`: completed OpenAI sample, one row per persona; generated only after all 500 outcomes validate.
-- `legacy/Data_100.csv`: original 100-persona pilot, preserved separately.
-- `simulation.py`, `study_config.json`: sampling, prompts, structured outputs, batch orchestration and auditing.
-- `Analysis.R`, `results/`: reproducible statistical analysis and generated tables/figures.
-- `build_paper.py`, `paper/`: manuscript source and PDF, populated from completed results.
-- `legacy/`: original manuscript source and original Groq code for historical reference.
-- `tests/`: offline pipeline checks and an artificial fixture generator for software verification.
-- `runs/`, `.env`, `.packages/`, `.Rlib/`: local-only inputs, checkpoints, credentials and dependencies, excluded from publication.
-
-The new manuscript replaces the pilot's numerical results and conclusions with
-the newly estimated findings. Changes across versions cannot be attributed to
-sample size alone because the model, temperature, measurement and analysis also changed.
+To collect a new run, supply credentials through the environment or a local
+`.env` based on `.env.example`, then use `python simulation.py prepare` and
+`python simulation.py run`. The fixed configuration is at the top of the script.
+The second command submits paid requests. Private source profiles, request
+files, raw responses and resumable JSON checkpoints stay in ignored `runs/`.
+The $30 planning ceiling is not a provider-enforced account spend limit.
 
 ## Source attribution
 
 Toubia, O., Gui, G. Z., Peng, T., Merlau, D. J., Li, A., & Chen, H. (2025).
-[Twin-2K-500](https://arxiv.org/abs/2505.17479). Source data: CC BY 4.0.
-See the paper for full references and measurement limitations.
-
-## Results of the completed run
-
-All 500 investment responses validated. Estimated Batch API charge: **USD 8.88**, excluding the no-persona compatibility check and taxes.
-
-The primary three-way interaction was not statistically detectable (likelihood-ratio chi-square = 0.897, df = 1, p = 0.344). The OLS-HC3 and ART sensitivity checks also did not detect it (p = 0.498 and 0.355). Thus, the earlier pilot conclusion of a significant three-way interaction is not reproduced in this run.
-
-Mean willingness to invest was 2.39 (Standard) versus 3.15 (XAI) in bear markets, and 3.98 versus 4.97 in bull markets. All six planned ordinal-model XAI contrasts were positive and significant after Holm correction; proportional-odds diagnostics flagged literacy-related departures, so common odds ratios require caution. See the manuscript for uncertainty and limitations.
+[Twin-2K-500](https://arxiv.org/abs/2505.17479), source data CC BY 4.0.
+The exact source revision, seed, parameter settings and audit are recorded in
+the simulation script and protocol.

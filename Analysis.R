@@ -4,7 +4,7 @@ args <- commandArgs(trailingOnly = TRUE)
 file_arg <- grep("^--file=", commandArgs(), value = TRUE)
 root <- dirname(normalizePath(sub("^--file=", "", file_arg[1]), winslash = "/"))
 .libPaths(c(file.path(root, ".Rlib"), .libPaths()))
-required <- c("ordinal", "ARTool", "ggplot2", "jsonlite")
+required <- c("ordinal", "ARTool", "ggplot2")
 missing <- required[!vapply(required, requireNamespace, logical(1), quietly = TRUE)]
 if (length(missing)) stop("Install R packages first: ", paste(missing, collapse = ", "))
 input <- if (length(args) >= 1) args[1] else file.path(root, "Data_500.csv")
@@ -28,7 +28,9 @@ df$WTI <- ordered(df$Willingness_to_Invest, levels = sort(unique(df$Willingness_
 median_lit <- median(df$Financial_Literacy)
 df$Literacy_Group <- factor(ifelse(df$Financial_Literacy > median_lit, "High", "Low"), levels = c("Low", "High"))
 
-sink(file.path(out, "analysis_log.txt"), split = TRUE)
+sink(file.path(out, "analysis.txt"), split = TRUE)
+options(width = 160, digits = 10)
+cat("Input dataset MD5:", unname(tools::md5sum(input)), "\n")
 cat("N =", nrow(df), "unique personas; one investment observation each.\n")
 cat("Financial literacy is an LLM-inferred pre-treatment proxy.\n")
 cat("Median proxy score:", median_lit, "\n")
@@ -45,10 +47,13 @@ summarize_cells <- function(groups) {
 }
 desc <- summarize_cells(c("Market", "Transparency_F"))
 desc_groups <- summarize_cells(c("Market", "Transparency_F", "Literacy_Group"))
-write.csv(desc, file.path(out, "descriptives.csv"), row.names = FALSE)
-write.csv(desc_groups, file.path(out, "descriptives_literacy_groups.csv"), row.names = FALSE)
-write.csv(as.data.frame(table(df$Financial_Literacy)), file.path(out, "literacy_distribution.csv"), row.names = FALSE)
-write.csv(as.data.frame(table(df$Market, df$Transparency_F, df$Willingness_to_Invest)), file.path(out, "outcome_distribution.csv"), row.names = FALSE)
+cat("\nDESCRIPTIVE TABLES\n")
+print(desc)
+print(desc_groups)
+cat("\nLiteracy distribution\n")
+print(table(df$Financial_Literacy))
+cat("\nOutcome counts by randomized condition\n")
+print(table(df$Market, df$Transparency_F, df$Willingness_to_Invest))
 
 cat("\nPRIMARY MODEL: cumulative logit\n")
 full <- ordinal::clm(WTI ~ Market * Transparency_F * Literacy_c, data = df, link = "logit", Hess = TRUE)
@@ -59,7 +64,6 @@ if (!is.null(convergence$code) && convergence$code != 0) stop("Ordinal model did
 if (anyNA(full$beta) || any(!is.finite(full$beta))) stop("Ordinal model not identifiable")
 lrt <- anova(reduced, full)
 print(lrt)
-write.csv(as.data.frame(lrt), file.path(out, "primary_three_way_lrt.csv"), row.names = TRUE)
 chi <- 2 * (as.numeric(logLik(full)) - as.numeric(logLik(reduced)))
 delta_df <- attr(logLik(full), "df") - attr(logLik(reduced), "df")
 primary_p <- pchisq(chi, delta_df, lower.tail = FALSE)
@@ -69,11 +73,11 @@ se <- sqrt(diag(V))
 coefs <- data.frame(Term = names(b), Estimate = unname(b), SE = se,
                     OR = exp(b), OR_Lower = exp(b - qnorm(.975)*se), OR_Upper = exp(b + qnorm(.975)*se),
                     p = 2*pnorm(abs(b/se), lower.tail = FALSE), row.names = NULL)
-write.csv(coefs, file.path(out, "ordinal_coefficients.csv"), row.names = FALSE)
+cat("\nOrdinal coefficients and pointwise odds-ratio intervals\n")
+print(coefs)
 po <- tryCatch(ordinal::nominal_test(full), error = function(e) list(error = conditionMessage(e)))
 cat("\nProportional-odds diagnostics:\n")
 print(po)
-if (is.data.frame(po)) write.csv(po, file.path(out, "proportional_odds_diagnostics.csv"), row.names = TRUE)
 
 make_x <- function(market, transparency, literacy) {
   new <- data.frame(Market = factor(market, levels = levels(df$Market)),
@@ -96,7 +100,6 @@ contrasts <- do.call(rbind, lapply(c("Bear", "Bull"), function(market) {
   }))
 }))
 contrasts$p_Holm <- p.adjust(contrasts$p_raw, method = "holm")
-write.csv(contrasts, file.path(out, "planned_xai_contrasts.csv"), row.names = FALSE)
 print(contrasts)
 
 cat("\nSENSITIVITY: OLS with HC3 standard errors\n")
@@ -109,7 +112,6 @@ hc3 <- bread %*% crossprod(weighted) %*% bread
 ols_se <- sqrt(diag(hc3))
 ols_table <- data.frame(Term = names(coef(ols)), Estimate = coef(ols), SE_HC3 = ols_se,
                         p = 2*pt(abs(coef(ols)/ols_se), df = df.residual(ols), lower.tail = FALSE), row.names = NULL)
-write.csv(ols_table, file.path(out, "ols_hc3_coefficients.csv"), row.names = FALSE)
 print(ols_table)
 
 cat("\nSENSITIVITY: legacy median-split ART\n")
@@ -118,9 +120,9 @@ if (length(unique(df$Literacy_Group)) == 2 && all(table(df$Market, df$Transparen
   art <- ARTool::art(Willingness_to_Invest ~ Market * Transparency_F * Literacy_Group, data = df)
   art_table <- as.data.frame(anova(art))
   print(art_table)
-  write.csv(art_table, file.path(out, "art_sensitivity_anova.csv"), row.names = TRUE)
   posthoc <- as.data.frame(ARTool::art.con(art, "Market:Transparency_F:Literacy_Group", adjust = "bonferroni"))
-  write.csv(posthoc, file.path(out, "art_sensitivity_posthoc.csv"), row.names = FALSE)
+  cat("\nART-C sensitivity pairwise comparisons (Bonferroni)\n")
+  print(posthoc)
 } else cat("ART sensitivity unavailable: at least one median-split subgroup is empty.\n")
 
 library(ggplot2)
@@ -140,14 +142,7 @@ interaction_plot <- ggplot(desc_groups, aes(x = Market, y = Mean, group = Transp
   theme_minimal(base_size = 10) + theme(legend.position = "bottom", panel.grid.minor = element_blank())
 ggsave(file.path(out, "interaction_descriptive.png"), interaction_plot, width = 7.5, height = 3.8, dpi = 200)
 
-report <- list(n = nrow(df), input_data_md5 = unname(tools::md5sum(input)), median_literacy = median_lit, observed_outcome_levels = sort(unique(df$Willingness_to_Invest)),
-               primary_chisq = chi, primary_df = delta_df, primary_p = primary_p,
-               ordinal_max_gradient = full$maxGradient, ordinal_condition_number = full$cond.H,
-               convergence = convergence, descriptives = desc, group_descriptives = desc_groups,
-               ordinal_coefficients = coefs, planned_contrasts = contrasts, ols_coefficients = ols_table,
-               art_anova = art_table,
-               missing_demographics = as.list(sapply(intersect(c("Age", "Gender", "Education"), names(df)), function(x) sum(is.na(df[[x]]) | df[[x]] == ""))))
-jsonlite::write_json(report, file.path(out, "report_data.json"), pretty = TRUE, auto_unbox = TRUE, null = "null", na = "null", digits = 16)
-writeLines(capture.output(sessionInfo()), file.path(out, "sessionInfo.txt"))
+cat("\nSoftware versions\n")
+print(sessionInfo())
 sink()
 cat("Analysis complete:", normalizePath(out, winslash = "/"), "\n")
