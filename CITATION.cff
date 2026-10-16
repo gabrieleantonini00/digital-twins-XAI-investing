@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: If you use or build upon the original work in this repository, please cite it using the
+  metadata below.
+type: software
+authors:
+- family-names: Antonini
+  given-names: Gabriele Matteo
+title: 'Explainable AI and simulated investment intentions: replication code'
+url: https://github.com/gabrieleantonini00/digital-twins-XAI-investing
+repository-code: https://github.com/gabrieleantonini00/digital-twins-XAI-investing
+date-released: '2026-10-16'
+preferred-citation:
+  type: unpublished
+  authors:
+  - family-names: Antonini
+    given-names: Gabriele Matteo
+  title: 'Opening the Black Box: Explainable AI and Simulated Investment Intentions Across Market
+    Contexts'
+  year: 2026
+  month: 10
+  url: https://github.com/gabrieleantonini00/digital-twins-XAI-investing/blob/main/paper/Manuscript.pdf

@@ -69,3 +69,18 @@ Toubia, O., Gui, G. Z., Peng, T., Merlau, D. J., Li, A., & Chen, H. (2025).
 [Twin-2K-500](https://arxiv.org/abs/2505.17479), source data CC BY 4.0.
 The exact source revision, seed, parameter settings and audit are recorded in
 the simulation script and protocol.
+
+## Citation
+
+If you use or build upon the original code, analyses, or research materials in
+this repository, please cite the accompanying manuscript:
+
+Antonini, G. M. (2026). *Opening the Black Box: Explainable AI and Simulated Investment Intentions Across Market Contexts* [Unpublished manuscript]. [Read the manuscript](https://github.com/gabrieleantonini00/digital-twins-XAI-investing/blob/main/paper/Manuscript.pdf).
+
+Citation metadata are available in [CITATION.cff](CITATION.cff) and through
+GitHub's **Cite this repository** feature. When reusing code or results, also
+identify the commit or version used.
+
+The source dataset has its own attribution requirements. When using the
+Twin-2K-500 data or derived profiles, also cite Toubia et al. (2025), as listed
+under **Source attribution**, and retain the source attribution.
