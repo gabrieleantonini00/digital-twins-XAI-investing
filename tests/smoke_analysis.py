@@ -2,7 +2,7 @@
 from pathlib import Path
 import random
 import pandas as pd
-root = Path(__file__).resolve().parent
+root = Path(__file__).resolve().parents[1]
 rng = random.Random(104)
 rows = []
 for market in ['Bear Market (Severe Downturn)', 'Bull Market (High Growth)']:

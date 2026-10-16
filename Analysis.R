@@ -74,7 +74,6 @@ po <- tryCatch(ordinal::nominal_test(full), error = function(e) list(error = con
 cat("\nProportional-odds diagnostics:\n")
 print(po)
 if (is.data.frame(po)) write.csv(po, file.path(out, "proportional_odds_diagnostics.csv"), row.names = TRUE)
-saveRDS(full, file.path(out, "ordinal_model.rds"))
 
 make_x <- function(market, transparency, literacy) {
   new <- data.frame(Market = factor(market, levels = levels(df$Market)),

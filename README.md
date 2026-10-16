@@ -1,7 +1,7 @@
 # Explainable AI and simulated investment intentions
 
 Replication project for a balanced experiment with **500 distinct personas**:
-Market (Bull/Bear) Ã— Transparency (Standard/XAI), **125 profiles per condition**.
+Market (Bull/Bear) × Transparency (Standard/XAI), **125 profiles per condition**.
 Each persona contributes exactly one willingness-to-invest response. There is no
 temperature comparison, repeated outcome sampling, or pooling with the old pilot.
 
@@ -15,7 +15,7 @@ temperature comparison, repeated outcome sampling, or pooling with the old pilot
 - Batch transport: sequential lots of 200, 200 and 100 in each phase, respecting the account's queued-token limit.
 - All requests use the same configuration. The scripts preserve checkpoints by PID and do not automatically redraw failed investment outcomes.
 
-The outcome is willingness to invest (integer 1â€“7). The study compares two
+The outcome is willingness to invest (integer 1–7). The study compares two
 descriptions of algorithmic disclosure. It does not identify human investment
 behavior or algorithm aversion relative to human advice, since there is no
 human-advisor condition.
@@ -29,7 +29,7 @@ Never commit credentials, downloaded persona profiles, raw API responses, or req
 
 ```sh
 python simulation.py prepare
-python -m unittest -v test_simulation.py
+python -m unittest discover -s tests -v
 python simulation.py run
 Rscript Analysis.R
 python build_paper.py
@@ -62,11 +62,12 @@ analyses. The report includes model diagnostics and flags extrapolated contrasts
 ## Files
 
 - `Data_500.csv`: completed OpenAI sample, one row per persona; generated only after all 500 outcomes validate.
-- `Data.csv`: original 100-persona pilot, preserved separately.
+- `legacy/Data_100.csv`: original 100-persona pilot, preserved separately.
 - `simulation.py`, `study_config.json`: sampling, prompts, structured outputs, batch orchestration and auditing.
 - `Analysis.R`, `results/`: reproducible statistical analysis and generated tables/figures.
 - `build_paper.py`, `paper/`: manuscript source and PDF, populated from completed results.
 - `legacy/`: original manuscript source and original Groq code for historical reference.
+- `tests/`: offline pipeline checks and an artificial fixture generator for software verification.
 - `runs/`, `.env`, `.packages/`, `.Rlib/`: local-only inputs, checkpoints, credentials and dependencies, excluded from publication.
 
 The new manuscript replaces the pilot's numerical results and conclusions with

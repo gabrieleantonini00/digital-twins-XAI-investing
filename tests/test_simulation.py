@@ -5,6 +5,8 @@ import tempfile
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import simulation as s
 
 
