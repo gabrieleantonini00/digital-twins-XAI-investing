@@ -1,0 +1,17 @@
+{
+  "study_id": "openai-500-v1",
+  "n": 500,
+  "seed": 42,
+  "dataset": "LLM-Digital-Twin/Twin-2K-500",
+  "dataset_revision": "f883165a3026fde855dfd448e0cd16443ab257b6",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "medium",
+  "temperature": 1.0,
+  "max_output_tokens": 1536,
+  "budget_ceiling_usd": 30.0,
+  "batch_input_usd_per_million": 2.0,
+  "batch_cached_input_usd_per_million": 0.2,
+  "batch_output_usd_per_million": 10.0,
+  "pricing_checked": "2026-10-16",
+  "prompt_version": "v1"
+}

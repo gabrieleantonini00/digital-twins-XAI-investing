@@ -1,0 +1,5 @@
+"Market","Transparency_F","N","Mean","SD","Median","Literacy_Min","Literacy_Max"
+"Bear","Standard",125,2.392,0.932357400668137,2,1,7
+"Bull","Standard",125,3.976,0.979334863156392,4,1,7
+"Bear","XAI",125,3.152,1.00848017237054,3,1,7
+"Bull","XAI",125,4.968,0.822427563238364,5,1,7
