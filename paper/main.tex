@@ -38,7 +38,7 @@ The study uses persona-conditioned LLM responses to obtain a controlled computat
 \subsection{Sampling and randomization}
 The source is the \texttt{full\_persona} configuration of Twin-2K-500, which provides profiles derived from a multiwave survey of 2,058 US participants \citep{twin2025}. The exact source revision is recorded in the replication files. The simulation uses the supplied \texttt{persona\_summary}; it does not generate new identities or use the full questionnaire text.
 
-Five hundred profiles were sampled without replacement using seed 42. This fixed sample size was chosen to broaden profile coverage within the computational budget; it was not determined by a significance-based stopping rule or a formal prospective power target. The pipeline required both 500 unique participant IDs and 500 unique persona summaries. Each profile was assigned to one of four combinations of market context and transparency using a seeded shuffle of a balanced allocation list. There are exactly 125 profiles per randomized condition. Financial literacy is an inferred baseline moderator; it is not a randomized third treatment. Consequently, the design is a randomized $2\times2$ experiment with a moderator, rather than eight independently randomized treatment cells.
+Five hundred profiles were sampled without replacement using seed 42. This fixed sample size was chosen to broaden profile coverage; it was not determined by a significance-based stopping rule or a formal prospective power target. The pipeline required both 500 unique participant IDs and 500 unique persona summaries. Each profile was assigned to one of four combinations of market context and transparency using a seeded shuffle of a balanced allocation list. There are exactly 125 profiles per randomized condition. Financial literacy is an inferred baseline moderator; it is not a randomized third treatment. Consequently, the design is a randomized $2\times2$ experiment with a moderator, rather than eight independently randomized treatment cells.
 
 \begin{table}[htbp]
 \centering
@@ -66,9 +66,9 @@ The bull-market description stated that the economy was thriving, with consisten
 The standard-AI condition provided only performance KPIs, with proprietary and hidden internal decision logic. The XAI condition described a dashboard displaying decision rationales, feature weights, and risk assessments. These are descriptions of disclosure availability, not exposure to a working explanation system. No human-advisor condition, realized investment returns, fees, or performance guarantees were supplied.
 
 \subsection{Model configuration and computational controls}
-All requests used OpenAI \texttt{gpt-5.6-sol}, reasoning effort \texttt{medium}, temperature 1, low output verbosity, and a maximum of 1,536 output tokens including reasoning. No \texttt{top\_p} override was supplied. A technical compatibility request contained no persona and was not part of the research sample. The API accepted the chosen reasoning and temperature combination. The model identifier and returned usage are recorded in the audit files; the provider did not expose a dated snapshot identifier in the selected alias.
+All requests used OpenAI \texttt{gpt-5.6-sol}, reasoning effort \texttt{medium}, temperature 1, low output verbosity, and a maximum of 1,536 output tokens including reasoning. No \texttt{top\_p} override was supplied. A technical compatibility request contained no persona and was not part of the research sample. The API accepted the chosen reasoning and temperature combination. The model identifier and execution metadata are recorded in the replication materials; the provider did not expose a dated snapshot identifier in the selected alias.
 
-Strict JSON schemas constrained the requested response fields. The two stages were executed through the Batch API, which offers asynchronous processing at reduced rates \citep{openaiBatch}. To respect the account's queued-token limit, each stage was transported as sequential lots of 200, 200, and 100. The initial 500-request job was rejected during validation with no processed requests. Splitting transport did not alter sample membership, randomization, prompts, or model settings.
+Strict JSON schemas constrained the requested response fields. The two stages were executed through the Batch API, which supports asynchronous processing \citep{openaiBatch}. To respect the account's queued-token limit, each stage was transported as sequential lots of 200, 200, and 100. The initial 500-request job was rejected during validation with no processed requests. Splitting transport did not alter sample membership, randomization, prompts, or model settings.
 
 Responses were reconciled by unique request ID and participant ID, independently of output-file order. The pipeline checked types, ranges, duplicate IDs, missing results, and response completion. It required all 500 valid baseline assessments and all 500 valid investment outcomes before exporting the final dataset. It did not automatically redraw failed or incomplete investment responses. Input files, source profiles, credentials, and raw API responses are kept outside the public replication artifacts. The audit section of the public protocol records sample counts, configuration, checksums, batch identifiers, and token usage.
 
@@ -272,8 +272,8 @@ OpenAI. (2026b). \textit{GPT-5.6 Sol model}. Accessed October 16, 2026.
 
 \clearpage
 \appendix
-\section{Replication and Cost Audit}
-The completed study used 3,094,979 input tokens and 114,806 output tokens, including 85,118 reasoning tokens. The estimated API charge from recorded usage and published Batch rates was \$8.88, before taxes or provider adjustments. The no-persona technical compatibility check is excluded from this study total. No chargeable request was processed in the initially rejected 500-request batch.
+\section{Replication Details}
+The completed study used 3,094,979 input tokens and 114,806 output tokens, including 85,118 reasoning tokens. These counts exclude the no-persona technical compatibility check. The initially rejected 500-request batch processed no requests.
 
 The source revision was {\footnotesize\texttt{f883165a3026fde855dfd448e0cd16443ab257b6}}. The final dataset SHA-256 checksum is recorded in \texttt{PROTOCOL.md}. The model settings follow the selected model documentation \citep{openaiModel}.
 
@@ -281,16 +281,16 @@ The source revision was {\footnotesize\texttt{f883165a3026fde855dfd448e0cd16443a
 \centering
 \small
 \caption{Recorded Batch usage}
-\begin{tabular}{lrrrr}
+\begin{tabular}{lrrr}
 \toprule
-Stage & Valid personas & Input tokens & Output tokens & Est. USD\\
+Stage & Valid personas & Input tokens & Output tokens\\
 \midrule
-Baseline & 500 & 1,535,371 & 64,801 & 4.49\\
-Decision & 500 & 1,559,608 & 50,005 & 4.40\\
+Baseline & 500 & 1,535,371 & 64,801\\
+Decision & 500 & 1,559,608 & 50,005\\
 \bottomrule
 \end{tabular}
 \par\smallskip
-\begin{minipage}{.96\linewidth}\footnotesize Output tokens include reasoning. Estimated costs include reported cache reads and writes. Each stage used three sequential transport batches.\end{minipage}
+\begin{minipage}{.96\linewidth}\footnotesize Output tokens include reasoning. Each stage used three sequential transport batches.\end{minipage}
 \end{table}
 
 The replication scripts are \texttt{simulation.py} and \texttt{Analysis.R}. The study configuration and prospective analysis plan are recorded in the configuration block in \texttt{simulation.py} and in \texttt{PROTOCOL.md}. \texttt{Data\_500.csv} contains one row per persona. The legacy 100-persona dataset is retained separately and is not an input to the new analysis.

@@ -23,8 +23,7 @@ LLM-inferred baseline proxy, not a validated human test score. These simulated
 outcomes do not establish human investment behavior or algorithm aversion
 relative to human advice. See the manuscript for uncertainty and limitations.
 
-Estimated Batch API charge: **USD 8.88**, excluding the technical compatibility
-check and taxes. The completed-run audit is consolidated in `PROTOCOL.md`.
+The completed-run audit is consolidated in `PROTOCOL.md`.
 
 ## Files
 
@@ -61,9 +60,8 @@ must be reflected in the LaTeX source before recompiling.
 To collect a new run, supply credentials through the environment or a local
 `.env` based on `.env.example`, then use `python simulation.py prepare` and
 `python simulation.py run`. The fixed configuration is at the top of the script.
-The second command submits paid requests. Private source profiles, request
+The second command submits requests to the API. Private source profiles, request
 files, raw responses and resumable JSON checkpoints stay in ignored `runs/`.
-The $30 planning ceiling is not a provider-enforced account spend limit.
 
 ## Source attribution
 
